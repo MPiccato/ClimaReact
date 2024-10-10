@@ -3,7 +3,7 @@ import './styles/WheaterApp.css'
 
 export const WheatherApp = () => {
 
-    const urlBase = `https://api.openweathermap.org/data/2.5/weather?` //q=${city}&appid=${apiKey}&lang=es`
+    const urlBase = `https://api.openweathermap.org/data/2.5/weather?`
     const apiKey = '03a6c4949511ea2cd914f615bd8a1e4c'
 
     const [city, setCity] = useState('')
@@ -16,6 +16,7 @@ export const WheatherApp = () => {
         try {
             const response = await fetch(`${urlBase}q=${city}&appid=${apiKey}`)
             const data = await response.json()
+
             setWeatherData(data)
         } catch (error) {
             console.error(error)
@@ -31,8 +32,8 @@ export const WheatherApp = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(city)
-        //fetchWeatherData()
+
+        fetchWeatherData()
     }
 
     return (
@@ -47,6 +48,12 @@ export const WheatherApp = () => {
                     onChange={handleCityChange} />
                 <button type='submit'>Buscar</button>
             </form>
+
+            {weatherData && (
+                <div>
+                    <h2>{weatherData.name}</h2>
+                </div>
+            )}
 
         </div>
     )
